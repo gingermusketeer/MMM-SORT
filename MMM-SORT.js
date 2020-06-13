@@ -47,14 +47,16 @@ Module.register("MMM-SORT", {
         this.scheduleUpdate();
     },
 
-    getDOM: function () {
+    getDom: function () {
         console.log("rendering")
+let result;
         try {
-            this.render()
+            result = this.render()
         } catch(e) {
             console.log("error rendeing", e)
         }
         console.log("finished rendering")
+return result
     },
     render: function() {
 
@@ -97,7 +99,7 @@ Module.register("MMM-SORT", {
             var date = document.createElement("div");
             const klass = index % 2 === 0 ? "date" : "date2"
             const {dt} = tide
-            const bright = Date.now() > dt ? "bright": "dimmed"
+            const bright = Date.now() < dt ? "bright": "dimmed"
             date.classList.add("xsmall", bright, klass);
             if (tide.type == "Low") {
                 date.innerHTML = "<img class = img src=modules/MMM-SORT/images/low.png width=12% height=12%>"
@@ -154,6 +156,7 @@ Module.register("MMM-SORT", {
     },
 
     scheduleUpdate: function() {
+        console.log("updating")
         setInterval(() => {
             this.getTides();
         }, this.config.updateInterval);
